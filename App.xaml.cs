@@ -1,6 +1,8 @@
-﻿using RestaurantApp.Stores;
+﻿using RestaurantApp.Models;
+using RestaurantApp.Stores;
 using RestaurantApp.ViewModels;
 using RestaurantApp.Views;
+using System.Linq;
 using System.Windows;
 
 namespace RestaurantApp;
@@ -19,6 +21,21 @@ public partial class App : Application
 
     protected override void OnStartup(StartupEventArgs e)
     {
+        //using (RestaurantContext context = new())
+        //{
+        //    if (context.Users.OfType<Administrator>().SingleOrDefault(a => a.UserName == "viorica.puscas") == null)
+        //    {
+        //        Administrator admin = new()
+        //        {
+        //            UserName = "viorica.puscas",
+        //            FirstName = "Viorica",
+        //            LastName = "Puscas"
+        //        };
+        //        context.Users.Add(admin);
+        //        context.SaveChanges();
+        //    }
+        //}
+
         _navigationStore.CurrentViewModel = new LogInViewModel(_navigationStore);
 
         MainWindow = new MainWindow()
