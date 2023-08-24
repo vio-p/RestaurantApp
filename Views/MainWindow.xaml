@@ -4,11 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RestaurantApp"
+        xmlns:viewmodels="clr-namespace:RestaurantApp.ViewModels"
+        xmlns:views="clr-namespace:RestaurantApp.Views"
         mc:Ignorable="d"
         Title="Restaurant App" Height="450" Width="800">
 
-    <Grid>
-        
-    </Grid>
+    <ContentControl Content="{Binding CurrentViewModel}">
+        <ContentControl.Resources>
+            <DataTemplate DataType="{x:Type viewmodels:LogInViewModel}">
+                <views:LogInView/>
+            </DataTemplate>
+        </ContentControl.Resources>
+    </ContentControl>
 
 </Window>
