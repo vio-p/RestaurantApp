@@ -1,9 +1,12 @@
-﻿namespace RestaurantApp.Models;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-public abstract class User
+namespace RestaurantApp.Models;
+
+public abstract partial class User : ObservableObject
 {
-    public int Id { get; set; }
-    public required string UserName { get; set; }
-    public required string FirstName { get; set; }
-    public required string LastName { get; set; }
+    [ObservableProperty] private int _id;
+    [ObservableProperty] public string _username;
+    [ObservableProperty] public string _firstName;
+    [ObservableProperty] public string _lastName;
+    public bool Active { get; set; } = true;
 }

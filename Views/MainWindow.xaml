@@ -14,6 +14,12 @@
             <DataTemplate DataType="{x:Type viewmodels:LogInViewModel}">
                 <views:LogInView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AdministratorViewModel}">
+                <views:AdministratorView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:WaiterViewModel}">
+                <views:WaiterView/>
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 

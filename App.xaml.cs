@@ -21,20 +21,20 @@ public partial class App : Application
 
     protected override void OnStartup(StartupEventArgs e)
     {
-        //using (RestaurantContext context = new())
-        //{
-        //    if (context.Users.OfType<Administrator>().SingleOrDefault(a => a.UserName == "viorica.puscas") == null)
-        //    {
-        //        Administrator admin = new()
-        //        {
-        //            UserName = "viorica.puscas",
-        //            FirstName = "Viorica",
-        //            LastName = "Puscas"
-        //        };
-        //        context.Users.Add(admin);
-        //        context.SaveChanges();
-        //    }
-        //}
+        using (RestaurantContext context = new())
+        {
+            if (context.Users.OfType<Administrator>().SingleOrDefault(a => a.Username == "viorica.puscas") == null)
+            {
+                Administrator admin = new()
+                {
+                    Username = "viorica.puscas",
+                    FirstName = "Viorica",
+                    LastName = "Puscas"
+                };
+                context.Users.Add(admin);
+                context.SaveChanges();
+            }
+        }
 
         _navigationStore.CurrentViewModel = new LogInViewModel(_navigationStore);
 
