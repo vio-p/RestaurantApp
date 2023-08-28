@@ -10,6 +10,7 @@ public class AdministratorViewModel : ViewModelBase
 
     public ICommand LogOutCommand { get; }
     public ICommand ShowWaitersPageCommand { get; }
+    public ICommand ShowTablesPageCommand { get; }
 
     public AdministratorViewModel(NavigationStore navigationStore)
     {
@@ -17,6 +18,7 @@ public class AdministratorViewModel : ViewModelBase
 
         LogOutCommand = new RelayCommand(LogOut);
         ShowWaitersPageCommand = new RelayCommand(ShowWaitersPage);
+        ShowTablesPageCommand = new RelayCommand(ShowTablesPage);
     }
 
     private ViewModelBase _currentPageViewModel;
@@ -38,5 +40,10 @@ public class AdministratorViewModel : ViewModelBase
     private void ShowWaitersPage()
     {
         CurrentPageViewModel = new AdministratorWaitersViewModel();
+    }
+
+    private void ShowTablesPage()
+    {
+        CurrentPageViewModel = new AdministratorTablesViewModel();
     }
 }

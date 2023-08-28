@@ -16,6 +16,7 @@ public class Order
     public required DateTime Date { get; set; }
     public decimal Total { get; set; } = 0;
     public OrderState State { get; set; } = OrderState.Unpaid;
+    public int OccupiedSeats { get; set; } = 0;
     public int TableId { get; set; }
     public required Table Table { get; set; }
     public int WaiterId { get; set; }

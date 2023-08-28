@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Configuration;
+using System.Diagnostics.Contracts;
 using System.Reflection.Metadata;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
@@ -16,6 +17,9 @@ public class RestaurantContext : DbContext
     {
         modelBuilder.Entity<User>()
             .UseTpcMappingStrategy();
+
+        modelBuilder.Entity<User>()
+            .Ignore(u => u.FullName);
 
         modelBuilder.Entity<Administrator>()
             .ToTable("Administrators");

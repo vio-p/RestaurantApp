@@ -1,4 +1,5 @@
-﻿using RestaurantApp.Commands;
+﻿using Microsoft.EntityFrameworkCore;
+using RestaurantApp.Commands;
 using RestaurantApp.Models;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -20,12 +21,10 @@ public class AdministratorWaitersViewModel : ViewModelBase
         using RestaurantContext context = new();
         Waiters = new(context.Users.OfType<Waiter>().Where(waiter => waiter.Active).ToList());
 
-        AddWaiterCommand = new RelayCommand(AddWaiter, parameter => DataIsValid);
-        ModifyWaiterCommand = new RelayCommand(ModifyWaiter, parameter => DataIsValid);
+        AddWaiterCommand = new RelayCommand(AddWaiter, parameter => InputIsValid());
+        ModifyWaiterCommand = new RelayCommand(ModifyWaiter, parameter => InputIsValid());
         DeleteWaiterCommand = new RelayCommand(DeleteWaiter, parameter => SelectedWaiter != null);
     }
-
-    public bool DataIsValid { get; set; } = false;
 
     private string _firstName;
     public string FirstName
@@ -34,7 +33,6 @@ public class AdministratorWaitersViewModel : ViewModelBase
         set
         {
             _firstName = value;
-            DataIsValid = !string.IsNullOrEmpty(_firstName) && !string.IsNullOrEmpty(_lastName) && !string.IsNullOrEmpty(_username);
             OnPropertyChanged(nameof(FirstName));
         }
     }
@@ -46,7 +44,6 @@ public class AdministratorWaitersViewModel : ViewModelBase
         set
         {
             _lastName = value;
-            DataIsValid = !string.IsNullOrEmpty(_firstName) && !string.IsNullOrEmpty(_lastName) && !string.IsNullOrEmpty(_username);
             OnPropertyChanged(nameof(LastName));
         }
     }
@@ -58,7 +55,6 @@ public class AdministratorWaitersViewModel : ViewModelBase
         set
         {
             _username = value;
-            DataIsValid = !string.IsNullOrEmpty(_firstName) && !string.IsNullOrEmpty(_lastName) && !string.IsNullOrEmpty(_username);
             OnPropertyChanged(nameof(Username));
         }
     }
@@ -100,7 +96,6 @@ public class AdministratorWaitersViewModel : ViewModelBase
             FirstName = FirstName,
             LastName = LastName
         };
-
         Waiters.Add(waiter);
 
         context.Users.Add(waiter);
@@ -132,8 +127,22 @@ public class AdministratorWaitersViewModel : ViewModelBase
         using RestaurantContext context = new();
         Waiter dbWaiter = context.Users.OfType<Waiter>().Single(waiter => waiter.Id == SelectedWaiter.Id);
         dbWaiter.Active = false;
+
+        foreach (Table table in context.Tables)
+        {
+            if (table.WaiterId ==  SelectedWaiter.Id)
+            {
+                table.Waiter = null;
+            }
+        }
+
         context.SaveChanges();
 
         Waiters.Remove(SelectedWaiter);
+    }
+
+    private bool InputIsValid()
+    {
+        return !string.IsNullOrEmpty(FirstName) && !string.IsNullOrEmpty(LastName) && !string.IsNullOrEmpty(Username);
     }
 }

@@ -23,11 +23,11 @@ public partial class App : Application
     {
         using (RestaurantContext context = new())
         {
-            if (context.Users.OfType<Administrator>().SingleOrDefault(a => a.Username == "viorica.puscas") == null)
+            if (context.Users.OfType<Administrator>().SingleOrDefault(a => a.Username == "vio") == null)
             {
                 Administrator admin = new()
                 {
-                    Username = "viorica.puscas",
+                    Username = "vio",
                     FirstName = "Viorica",
                     LastName = "Puscas"
                 };
