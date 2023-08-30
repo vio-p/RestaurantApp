@@ -22,7 +22,7 @@ public class AdministratorWaitersViewModel : ViewModelBase
         Waiters = new(context.Users.OfType<Waiter>().Where(waiter => waiter.Active).ToList());
 
         AddWaiterCommand = new RelayCommand(AddWaiter, parameter => InputIsValid());
-        ModifyWaiterCommand = new RelayCommand(ModifyWaiter, parameter => InputIsValid());
+        ModifyWaiterCommand = new RelayCommand(ModifyWaiter, parameter => InputIsValid() && SelectedWaiter != null);
         DeleteWaiterCommand = new RelayCommand(DeleteWaiter, parameter => SelectedWaiter != null);
     }
 

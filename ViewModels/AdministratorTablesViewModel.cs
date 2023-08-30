@@ -24,7 +24,7 @@ public class AdministratorTablesViewModel : ViewModelBase
         Waiters = new(context.Users.OfType<Waiter>().Where(waiter => waiter.Active).ToList());
 
         AddTableCommand = new RelayCommand(AddTable, parameter => InputIsValid());
-        ModifyTableCommand = new RelayCommand(ModifyTable, parameter => InputIsValid());
+        ModifyTableCommand = new RelayCommand(ModifyTable, parameter => InputIsValid() && SelectedTable != null);
         DeleteTableCommand = new RelayCommand(DeleteTable, parameter => SelectedTable != null);
     }
 
@@ -86,7 +86,6 @@ public class AdministratorTablesViewModel : ViewModelBase
             OnPropertyChanged(nameof(SelectedTable));
         }
     }
-
 
     private void AddTable()
     {

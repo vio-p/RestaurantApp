@@ -1,5 +1,6 @@
 ﻿using RestaurantApp.Commands;
 using RestaurantApp.Stores;
+using System;
 using System.Windows.Input;
 
 namespace RestaurantApp.ViewModels;
@@ -11,6 +12,7 @@ public class AdministratorViewModel : ViewModelBase
     public ICommand LogOutCommand { get; }
     public ICommand ShowWaitersPageCommand { get; }
     public ICommand ShowTablesPageCommand { get; }
+    public ICommand ShowProductsPageCommand { get; }
 
     public AdministratorViewModel(NavigationStore navigationStore)
     {
@@ -19,6 +21,7 @@ public class AdministratorViewModel : ViewModelBase
         LogOutCommand = new RelayCommand(LogOut);
         ShowWaitersPageCommand = new RelayCommand(ShowWaitersPage);
         ShowTablesPageCommand = new RelayCommand(ShowTablesPage);
+        ShowProductsPageCommand = new RelayCommand(ShowProductsPage);
     }
 
     private ViewModelBase _currentPageViewModel;
@@ -45,5 +48,10 @@ public class AdministratorViewModel : ViewModelBase
     private void ShowTablesPage()
     {
         CurrentPageViewModel = new AdministratorTablesViewModel();
+    }
+
+    private void ShowProductsPage()
+    {
+        CurrentPageViewModel = new AdministratorProductsViewModel();
     }
 }
