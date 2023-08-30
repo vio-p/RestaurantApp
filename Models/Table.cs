@@ -8,6 +8,7 @@ public partial class Table : ObservableObject
     public int Id { get; set; }
     [ObservableProperty] private int _number;
     [ObservableProperty] private int _availableSeats;
+    public bool Available { get; set; } = true;
     public bool Active { get; set; } = true;
     public int? WaiterId { get; set; }
     [ObservableProperty] private Waiter? _waiter;

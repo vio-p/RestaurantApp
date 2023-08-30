@@ -49,9 +49,9 @@ public class LogInViewModel : ViewModelBase
                 _navigationStore.CurrentViewModel = new AdministratorViewModel(_navigationStore);
                 return;
             }
-            if (user is Waiter)
+            if (user is Waiter waiter)
             {
-                _navigationStore.CurrentViewModel = new WaiterViewModel(_navigationStore);
+                _navigationStore.CurrentViewModel = new WaiterViewModel(_navigationStore, waiter);
                 return;
             }
         }

@@ -1,6 +1,5 @@
 ﻿using RestaurantApp.Commands;
 using RestaurantApp.Stores;
-using System;
 using System.Windows.Input;
 
 namespace RestaurantApp.ViewModels;
