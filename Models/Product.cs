@@ -11,4 +11,5 @@ public partial class Product : ObservableObject
     public bool Active { get; set; } = true;
     public int OrderCount { get; set; } = 0;
     public ICollection<OrderProduct>? OrderProducts { get; set; }
+    public string DisplayName => Name + ", " + Price.ToString();
 }

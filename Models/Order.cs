@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 
 namespace RestaurantApp.Models;
@@ -10,12 +11,12 @@ public enum OrderState
     Canceled
 }
 
-public class Order
+public partial class Order : ObservableObject
 {
     public int Id { get; set; }
     public required DateTime Date { get; set; }
-    public decimal Total { get; set; } = 0;
-    public OrderState State { get; set; } = OrderState.Unpaid;
+    [ObservableProperty] private decimal _total = 0;
+    [ObservableProperty] private OrderState _state = OrderState.Unpaid;
     public int OccupiedSeats { get; set; }
     public int TableId { get; set; }
     public required Table Table { get; set; }

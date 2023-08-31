@@ -41,7 +41,45 @@
             <Button Content="Cancel order" Padding="5 0"/>
         </StackPanel>
 
-        <DataGrid Grid.Row="4" Grid.ColumnSpan="4" ItemsSource="{Binding Orders}" IsReadOnly="True" AutoGenerateColumns="False" Margin="0 5">
+        <Border Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="3" BorderThickness="1" BorderBrush="Gray" Margin="5 0 0 0" Visibility="{Binding ProductsSectionVisibility}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Product:" VerticalAlignment="Center" Margin="5 0"/>
+                <ComboBox Grid.Column="1" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" Margin="0 5" VerticalAlignment="Center">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DisplayName}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <Button Grid.Column="2" Content="Add" Command="{Binding AddProductCommand}" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="5 0"/>
+                <Button Grid.Column="3" Content="Remove" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="5 0"/>
+
+                <DataGrid Grid.Row="1" Grid.ColumnSpan="4" ItemsSource="{Binding OrderProducts}" IsReadOnly="True" AutoGenerateColumns="False" Margin="0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Product name" Binding="{Binding Product.Name}"/>
+                        <DataGridTextColumn Header="Product price" Binding="{Binding ProductPrice}"/>
+                        <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}"/>
+                        <DataGridTextColumn Header="Total for product" Binding="{Binding TotalPrice}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </Grid>
+        </Border>
+
+        <DataGrid Grid.Row="4" Grid.ColumnSpan="4" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" IsReadOnly="True" AutoGenerateColumns="False" Margin="0 5">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Started on" Binding="{Binding Date}"/>
                 <DataGridTextColumn Header="Table number" Binding="{Binding Table.Number}"/>

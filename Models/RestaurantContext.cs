@@ -32,11 +32,13 @@ public class RestaurantContext : DbContext
             .HasConversion<int>();
         modelBuilder.Entity<Order>()
             .Property(o => o.Total)
-            .HasPrecision(19, 4);
+            .HasPrecision(19, 2);
 
         modelBuilder.Entity<Product>()
             .Property(p => p.Price)
-            .HasPrecision(19, 4);
+            .HasPrecision(19, 2);
+        modelBuilder.Entity<Product>()
+            .Ignore(p => p.DisplayName);
 
         modelBuilder.Entity<OrderProduct>()
             .HasKey(op => new { op.OrderId, op.ProductId });
@@ -50,7 +52,9 @@ public class RestaurantContext : DbContext
             .HasForeignKey(op => op.ProductId);
         modelBuilder.Entity<OrderProduct>()
             .Property(op => op.ProductPrice)
-            .HasPrecision(19, 4);
+            .HasPrecision(19, 2);
+        modelBuilder.Entity<OrderProduct>()
+            .Ignore(op => op.TotalPrice);
     }
 
     public DbSet<User> Users { get; set; }
