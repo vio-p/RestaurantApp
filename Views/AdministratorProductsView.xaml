@@ -36,7 +36,7 @@
         <Button Grid.Row="1" Grid.Column="2" Content="Modify" Command="{Binding ModifyProductCommand}" Width="100" Margin="0 5"/>
         <Button Grid.Row="2" Grid.Column="2" Content="Delete" Command="{Binding DeleteProductCommand}" Width="100"/>
 
-        <DataGrid Grid.Row="3" Grid.ColumnSpan="3" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" IsReadOnly="True" AutoGenerateColumns="False" Margin="0 5">
+        <DataGrid Grid.Row="3" Grid.ColumnSpan="3" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single" Margin="0 5">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Product name" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Price" Binding="{Binding Price}"/>

@@ -114,7 +114,7 @@ public class AdministratorProductsViewModel : ViewModelBase
                   order => order.Id,
                   orderProduct => orderProduct.OrderId,
                   (order, orderProduct) => new { order, orderProduct })
-            .Where(joinResult => joinResult.order.State == OrderState.Unpaid && joinResult.orderProduct.ProductId == SelectedProduct.Id)
+            .Where(joinResult => joinResult.order.State == OrderState.Ongoing && joinResult.orderProduct.ProductId == SelectedProduct.Id)
             .Select(joinResult => joinResult.order).ToList();
         if (unpaidOrdersLinkedToProduct.Count > 0)
         {
@@ -141,7 +141,7 @@ public class AdministratorProductsViewModel : ViewModelBase
                   order => order.Id,
                   orderProduct => orderProduct.OrderId,
                   (order, orderProduct) => new { order, orderProduct })
-            .Where(joinResult => joinResult.order.State == OrderState.Unpaid && joinResult.orderProduct.ProductId == SelectedProduct.Id)
+            .Where(joinResult => joinResult.order.State == OrderState.Ongoing && joinResult.orderProduct.ProductId == SelectedProduct.Id)
             .Select(joinResult => joinResult.order).ToList();
         if (unpaidOrdersLinkedToProduct.Count > 0)
         {

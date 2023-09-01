@@ -13,6 +13,7 @@ public class WaiterViewModel : ViewModelBase
 
     public ICommand LogOutCommand { get; }
     public ICommand ShowOrdersPageCommand { get; }
+    public ICommand ShowOrderHistoryPageCommand { get; }
 
     public WaiterViewModel(NavigationStore navigationStore, Waiter loggedInWaiter)
     {
@@ -21,6 +22,7 @@ public class WaiterViewModel : ViewModelBase
 
         LogOutCommand = new RelayCommand(LogOut);
         ShowOrdersPageCommand = new RelayCommand(ShowOrdersPage);
+        ShowOrderHistoryPageCommand = new RelayCommand(ShowOrderHistoryPage);
     }
 
     private ViewModelBase _currentPageViewModel;
@@ -42,5 +44,10 @@ public class WaiterViewModel : ViewModelBase
     private void ShowOrdersPage()
     {
         CurrentPageViewModel = new WaiterOrdersViewModel(_loggedInWaiter);
+    }
+
+    private void ShowOrderHistoryPage()
+    {
+        CurrentPageViewModel = new WaiterOrderHistoryViewModel(_loggedInWaiter);
     }
 }

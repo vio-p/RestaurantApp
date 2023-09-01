@@ -33,7 +33,7 @@ public class WaiterOrdersViewModel : ViewModelBase
 
         using RestaurantContext context = new();
         AvailableTables = new(context.Tables.Where(table => table.Active && table.Available && table.WaiterId == _loggedInWaiter.Id));
-        Orders = new(context.Orders.Include("Table").Where(order => order.WaiterId == _loggedInWaiter.Id && order.State == OrderState.Unpaid));
+        Orders = new(context.Orders.Include("Table").Where(order => order.WaiterId == _loggedInWaiter.Id && order.State == OrderState.Ongoing));
         Products = new(context.Products.Where(product => product.Active));
         OrderProducts = new();
 
@@ -135,7 +135,7 @@ public class WaiterOrdersViewModel : ViewModelBase
     {
         using RestaurantContext context = new();
         Order dbOrder = context.Orders.Single(order => order.Id == SelectedOrder.Id);
-        dbOrder.State = OrderState.Paid;
+        dbOrder.State = OrderState.Finished;
 
         Table dbTable = context.Tables.Single(table => table.Id == SelectedOrder.TableId);
         dbTable.Available = true;

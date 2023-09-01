@@ -84,9 +84,9 @@
             </Grid>
         </Border>
 
-        <DataGrid Grid.Row="4" Grid.ColumnSpan="4" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" IsReadOnly="True" AutoGenerateColumns="False" Margin="0 5">
+        <DataGrid Grid.Row="4" Grid.ColumnSpan="4" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single" Margin="0 5">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Started on" Binding="{Binding Date}"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
                 <DataGridTextColumn Header="Table number" Binding="{Binding Table.Number}"/>
                 <DataGridTextColumn Header="Occupied seats" Binding="{Binding OccupiedSeats}"/>
                 <DataGridTextColumn Header="State" Binding="{Binding State}"/>

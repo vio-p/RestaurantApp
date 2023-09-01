@@ -6,8 +6,8 @@ namespace RestaurantApp.Models;
 
 public enum OrderState
 {
-    Unpaid,
-    Paid,
+    Ongoing,
+    Finished,
     Canceled
 }
 
@@ -16,7 +16,7 @@ public partial class Order : ObservableObject
     public int Id { get; set; }
     public required DateTime Date { get; set; }
     [ObservableProperty] private decimal _total = 0;
-    [ObservableProperty] private OrderState _state = OrderState.Unpaid;
+    [ObservableProperty] private OrderState _state = OrderState.Ongoing;
     public int OccupiedSeats { get; set; }
     public int TableId { get; set; }
     public required Table Table { get; set; }
