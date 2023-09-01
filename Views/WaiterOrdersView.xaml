@@ -37,8 +37,8 @@
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Content="Start order" Command="{Binding StartOrderCommand}"/>
-            <Button Content="Close order" Margin="0 5"/>
-            <Button Content="Cancel order" Padding="5 0"/>
+            <Button Content="Close order" Command="{Binding CloseOrderCommand}" Margin="0 5"/>
+            <Button Content="Cancel order" Command="{Binding CancelOrderCommand}" Padding="5 0"/>
         </StackPanel>
 
         <Border Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="3" BorderThickness="1" BorderBrush="Gray" Margin="5 0 0 0" Visibility="{Binding ProductsSectionVisibility}">
@@ -65,7 +65,7 @@
                 </ComboBox>
 
                 <Button Grid.Column="2" Content="Add" Command="{Binding AddProductCommand}" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="5 0"/>
-                <Button Grid.Column="3" Content="Remove" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="5 0"/>
+                <Button Grid.Column="3" Content="Remove" Command="{Binding RemoveProductCommand}" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="5 0"/>
 
                 <DataGrid Grid.Row="1" Grid.ColumnSpan="4" ItemsSource="{Binding OrderProducts}" IsReadOnly="True" AutoGenerateColumns="False" Margin="0">
                     <DataGrid.Columns>

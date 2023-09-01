@@ -10,5 +10,10 @@ public partial class OrderProduct : ObservableObject
     public Product Product { get; set; }
     public decimal ProductPrice { get; set; }
     [ObservableProperty] private int _quantity = 1;
-    public decimal TotalPrice => ProductPrice * Quantity;
+    public decimal TotalPrice => Quantity * ProductPrice;
+
+    partial void OnQuantityChanged(int value)
+    {
+        OnPropertyChanged(nameof(TotalPrice));
+    }
 }
