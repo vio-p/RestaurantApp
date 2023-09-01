@@ -17,7 +17,7 @@
 
         <Menu Grid.Row="0" FontSize="14">
             <MenuItem Header="Orders" Command="{Binding ShowOrdersPageCommand}"/>
-            <MenuItem Header="Tables" Command="{Binding}"/>
+            <MenuItem Header="Order History" Command="{Binding}"/>
             <MenuItem Header="Log Out" Command="{Binding LogOutCommand}"/>
         </Menu>
 

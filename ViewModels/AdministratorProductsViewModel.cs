@@ -1,7 +1,11 @@
-﻿using RestaurantApp.Commands;
+﻿using Microsoft.EntityFrameworkCore;
+using RestaurantApp.Commands;
 using RestaurantApp.Models;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace RestaurantApp.ViewModels;
@@ -46,6 +50,17 @@ public class AdministratorProductsViewModel : ViewModelBase
         }
     }
 
+    private bool _available = true;
+    public bool Available
+    {
+        get => _available;
+        set
+        {
+            _available = value;
+            OnPropertyChanged(nameof(Available));
+        }
+    }
+
     private Product _selectedProduct;
     public Product SelectedProduct
     {
@@ -57,11 +72,13 @@ public class AdministratorProductsViewModel : ViewModelBase
             {
                 Name = _selectedProduct.Name;
                 Price = _selectedProduct.Price.ToString();
+                Available = _selectedProduct.Available;
             }
             else
             {
                 Name = null!;
                 Price = null!;
+                Available = true;
             }
             OnPropertyChanged(nameof(SelectedProduct));
         }
@@ -69,33 +86,69 @@ public class AdministratorProductsViewModel : ViewModelBase
 
     private void AddProduct()
     {
+        using RestaurantContext context = new();
+        if (context.Products.SingleOrDefault(product => product.Name == Name && product.Active) != null)
+        {
+            _ = MessageBox.Show("There is already a product with this name!", "Invalid name", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
         Product product = new()
         {
             Name = Name,
-            Price = decimal.Parse(Price)
+            Price = decimal.Parse(Price),
+            Available = Available
         };
         Products.Add(product);
 
-        using RestaurantContext context = new();
         context.Products.Add(product);
         context.SaveChanges();
     }
 
     private void ModifyProduct()
     {
+        using RestaurantContext context = new();
+
+        List<Order> unpaidOrdersLinkedToProduct = context.Orders
+            .Join(context.OrderProducts,
+                  order => order.Id,
+                  orderProduct => orderProduct.OrderId,
+                  (order, orderProduct) => new { order, orderProduct })
+            .Where(joinResult => joinResult.order.State == OrderState.Unpaid && joinResult.orderProduct.ProductId == SelectedProduct.Id)
+            .Select(joinResult => joinResult.order).ToList();
+        if (unpaidOrdersLinkedToProduct.Count > 0)
+        {
+            _ = MessageBox.Show("This product can't be modified because it is linked to an ongoing order!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
         SelectedProduct.Name = Name;
         SelectedProduct.Price = decimal.Parse(Price);
+        SelectedProduct.Available = Available;
 
-        using RestaurantContext context = new();
         Product dbProduct = context.Products.Single(product => product.Id == SelectedProduct.Id);
         dbProduct.Name = SelectedProduct.Name;
         dbProduct.Price = SelectedProduct.Price;
+        dbProduct.Available = SelectedProduct.Available;
         context.SaveChanges();
     }
 
     private void DeleteProduct()
     {
         using RestaurantContext context = new();
+        List<Order> unpaidOrdersLinkedToProduct = context.Orders
+            .Join(context.OrderProducts,
+                  order => order.Id,
+                  orderProduct => orderProduct.OrderId,
+                  (order, orderProduct) => new { order, orderProduct })
+            .Where(joinResult => joinResult.order.State == OrderState.Unpaid && joinResult.orderProduct.ProductId == SelectedProduct.Id)
+            .Select(joinResult => joinResult.order).ToList();
+        if (unpaidOrdersLinkedToProduct.Count > 0)
+        {
+            _ = MessageBox.Show("This product can't be modified because it is linked to an ongoing order!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
         Product dbProduct = context.Products.Single(product => product.Id == SelectedProduct.Id);
         dbProduct.Active = false;
         context.SaveChanges();

@@ -59,9 +59,14 @@
                 <ComboBox Grid.Column="1" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" Margin="0 5" VerticalAlignment="Center">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding DisplayName}"/>
+                            <TextBlock Text="{Binding DisplayName}" IsEnabled="{Binding Available}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="ComboBoxItem">
+                            <Setter Property="IsEnabled" Value="{Binding Available}" />
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
                 </ComboBox>
 
                 <Button Grid.Column="2" Content="Add" Command="{Binding AddProductCommand}" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="5 0"/>

@@ -175,7 +175,7 @@ public class WaiterOrdersViewModel : ViewModelBase
             {
                 OrderId = SelectedOrder.Id,
                 ProductId = SelectedProduct.Id,
-                ProductPrice = SelectedProduct.Price // what if the price of product is modified when there are orders that aren't closed and contain it, ADD RESTRICTION
+                ProductPrice = SelectedProduct.Price
             };
 
             context.Add(orderProduct);
@@ -190,6 +190,10 @@ public class WaiterOrdersViewModel : ViewModelBase
 
             existingOrderProduct.Quantity++;
         }
+
+        Product dbProduct = context.Products.Single(product => product.Id == SelectedProduct.Id);
+        dbProduct.OrderCount++;
+
         Order dbOrder = context.Orders.Single(order => order.Id == SelectedOrder.Id);
         dbOrder.Total += SelectedProduct.Price;
         context.SaveChanges();
@@ -215,6 +219,10 @@ public class WaiterOrdersViewModel : ViewModelBase
 
             OrderProducts.Remove(existingOrderProduct);
         }
+
+        Product dbProduct = context.Products.Single(product => product.Id == SelectedProduct.Id);
+        dbProduct.OrderCount--;
+
         Order dbOrder = context.Orders.Single(order => order.Id == SelectedOrder.Id);
         dbOrder.Total -= SelectedProduct.Price;
         context.SaveChanges();
@@ -228,8 +236,3 @@ public class WaiterOrdersViewModel : ViewModelBase
         return SelectedTable != null && !string.IsNullOrEmpty(OccupiedSeats) && occupiedSeatsIsValid && occupiedSeats <= SelectedTable.AvailableSeats;
     }
 }
-
-// TODO
-// maybe add property quantity to Product, which is decremented when product is added to order => disable product on quantity equal to 0
-// check if product with same name exists and is active
-// restrict user from modifying product when linked to unpaid order
