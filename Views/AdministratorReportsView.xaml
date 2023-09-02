@@ -44,5 +44,85 @@
                 </DataGrid>
             </DockPanel>
         </Border>
+
+        <Grid Grid.Column="1" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border BorderBrush="DarkGray" BorderThickness="1" Margin="5 0 0 0">
+                <StackPanel Margin="5">
+                    <WrapPanel>
+                        <TextBlock Text="Month: "/>
+                        <TextBlock Text="{Binding SelectedYearAndMonth, StringFormat=MMMM}"/>
+                    </WrapPanel>
+                    <TextBlock Text="Lowest revenue: " Margin="0 5"/>
+                    <ListView ItemsSource="{Binding WaitersWithLowestMonthlyRevenue}" Margin="10 0 0 0">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding FullName}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <TextBlock Text="Highest revenue: " Margin="0 5"/>
+                    <ListView ItemsSource="{Binding WaitersWithHighestMonthlyRevenue}" Margin="10 0 0 5">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding FullName}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1" BorderBrush="DarkGray" BorderThickness="1" Margin="5 5 0 5">
+                <StackPanel Margin="5">
+                    <TextBlock Text="Revenue in the last 6 months:"/>
+                    <TextBlock Text="Lowest:" Margin="0 5"/>
+                    <ListView ItemsSource="{Binding WaitersWithLowestRevenueOverLastSixMonths}" Margin="10 0 0 0">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <TextBlock Text="{Binding Item1.FullName}"/>
+                                    <TextBlock Text=" - "/>
+                                    <TextBlock Text="{Binding Item2}"/>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <TextBlock Text="Highest:" Margin="0 5"/>
+                    <ListView ItemsSource="{Binding WaitersWithHighestRevenueOverLastSixMonths}" Margin="10 0 0 5">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <TextBlock Text="{Binding Item1.FullName}"/>
+                                    <TextBlock Text=" - "/>
+                                    <TextBlock Text="{Binding Item2}"/>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="2" BorderBrush="DarkGray" BorderThickness="1" Margin="5 0 0 0">
+                <StackPanel>
+                    <TextBlock Text="Most ordered products: "/>
+                    <ListView ItemsSource="{Binding MostOrderedProducts}" Margin="5 5">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text=" - "/>
+                                    <TextBlock Text="{Binding OrderCount}"/>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>
