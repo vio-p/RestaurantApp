@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="RestaurantApp.Views.AdministratorReportsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RestaurantApp.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             FontSize="14" FontFamily="Microsoft Sans Serif">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border BorderBrush="DarkGray" BorderThickness="1" Margin="0 0 0 5">
+            <DockPanel Margin="5">
+                <TextBlock DockPanel.Dock="Top" Text="Daily revenue"/>
+                <DatePicker DockPanel.Dock="Top" SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="0 5"/>
+
+                <DataGrid ItemsSource="{Binding DailyRevenues}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Waiter" Binding="{Binding Item1.FullName}"/>
+                        <DataGridTextColumn Header="Revenue" Binding="{Binding Item2}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </Border>
+
+        <Border Grid.Row="1" BorderBrush="DarkGray" BorderThickness="1">
+            <DockPanel Margin="5">
+                <TextBlock DockPanel.Dock="Top" Text="Monthly revenue"/>
+                <DatePicker DockPanel.Dock="Top" SelectedDate="{Binding SelectedYearAndMonth, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="0 5"/>
+                <DataGrid ItemsSource="{Binding MonthlyRevenues}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Waiter" Binding="{Binding Item1.FullName}"/>
+                        <DataGridTextColumn Header="Revenue" Binding="{Binding Item2}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </Border>
+    </Grid>
+</UserControl>

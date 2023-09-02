@@ -12,6 +12,7 @@ public class AdministratorViewModel : ViewModelBase
     public ICommand ShowWaitersPageCommand { get; }
     public ICommand ShowTablesPageCommand { get; }
     public ICommand ShowProductsPageCommand { get; }
+    public ICommand ShowReportsPageCommand { get; }
 
     public AdministratorViewModel(NavigationStore navigationStore)
     {
@@ -21,6 +22,7 @@ public class AdministratorViewModel : ViewModelBase
         ShowWaitersPageCommand = new RelayCommand(ShowWaitersPage);
         ShowTablesPageCommand = new RelayCommand(ShowTablesPage);
         ShowProductsPageCommand = new RelayCommand(ShowProductsPage);
+        ShowReportsPageCommand = new RelayCommand(ShowReportsPage);
     }
 
     private ViewModelBase _currentPageViewModel;
@@ -52,5 +54,10 @@ public class AdministratorViewModel : ViewModelBase
     private void ShowProductsPage()
     {
         CurrentPageViewModel = new AdministratorProductsViewModel();
+    }
+
+    private void ShowReportsPage()
+    {
+        CurrentPageViewModel = new AdministratorReportsViewModel();
     }
 }

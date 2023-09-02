@@ -19,7 +19,7 @@
             <MenuItem Header="Waiters" Command="{Binding ShowWaitersPageCommand}"/>
             <MenuItem Header="Tables" Command="{Binding ShowTablesPageCommand}"/>
             <MenuItem Header="Products" Command="{Binding ShowProductsPageCommand}"/>
-            <MenuItem Header="Reports" Command="{Binding}"/>
+            <MenuItem Header="Reports" Command="{Binding ShowReportsPageCommand}"/>
             <MenuItem Header="Log Out" Command="{Binding LogOutCommand}"/>
         </Menu>
 
@@ -33,6 +33,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:AdministratorProductsViewModel}">
                     <views:AdministratorProductsView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:AdministratorReportsViewModel}">
+                    <views:AdministratorReportsView/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
